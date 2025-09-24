@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * Autore: Makaoui Youness
+ * Data: 24/09/2025
+ * Classe: 4G
+ * Luogo: Lab 53bis
+ * Descrizione: Lista Concatenata
+*/
 typedef struct Node{
     int num;
     struct Node *next;

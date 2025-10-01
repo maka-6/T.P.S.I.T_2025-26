@@ -23,13 +23,13 @@ int main(void) {
     printf("Hello, World!\n");
 
     // testa della lista
-    Node *head ;
+    Node *head;
 
-    InsertNodeHead ( &head, 5 );
     InsertNodeHead ( &head, 6 );
+    InsertNodeHead ( &head, 5 );
     InsertNodeTail ( &head, 7 );
     InsertNodeTail ( &head, 8 );
-    InsertNodeHead ( &head, 9 );
+    InsertNodeHead ( &head, 4 );
     PrintList ( &head );
 
     return 0;

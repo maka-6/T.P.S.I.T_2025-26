@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 4.0)
-project(T_P_S_I_T_2025_26 C)
+project(Project_1 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(T_P_S_I_T_2025_26 main.c)
+add_executable(Project_1 main.c)

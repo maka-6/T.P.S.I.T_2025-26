@@ -8,6 +8,7 @@
  * Luogo: Lab 53bis
  * Descrizione: Lista Concatenata
 */
+
 typedef struct Node{
     int num;
     struct Node *next;

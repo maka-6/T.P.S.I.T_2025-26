@@ -1,3 +1,0 @@
-C:/Users/makao/OneDrive/Desktop/Lav/scuola 2025-26/github/T.P.S.I.T_2025-26/cmake-build-debug/CMakeFiles/T_P_S_I_T_2025_26.dir
-C:/Users/makao/OneDrive/Desktop/Lav/scuola 2025-26/github/T.P.S.I.T_2025-26/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/makao/OneDrive/Desktop/Lav/scuola 2025-26/github/T.P.S.I.T_2025-26/cmake-build-debug/CMakeFiles/rebuild_cache.dir

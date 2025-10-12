@@ -4,7 +4,7 @@
 
 /*
  * Autore: Makaoui Youness
- * Data: 1/10/2025
+ * Data: 12/10/2025
  * Classe: 4G
  * Luogo: Lab 53bis
  * Descrizione: Rubrica infinita
@@ -24,6 +24,7 @@ struct Contatto{
 
 }Contatto;
 
+// salva i dati in un file csv, solo scrittura
 void LoadData ( struct Contatto ** rubricaHead ) {
 
     if ( rubricaHead == NULL )

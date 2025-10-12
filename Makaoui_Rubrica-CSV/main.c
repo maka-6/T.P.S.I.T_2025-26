@@ -9,7 +9,7 @@
  * Luogo: Lab 53bis
  * Descrizione: Rubrica infinita
                 ** funzioni sperimentali in searchNumber, prof ho fatto robe
-                * Aggiunto il salvataggio automatico in csv
+                * Aggiunto il salvataggio in csv
 */
 
 // record Contatto
@@ -24,9 +24,25 @@ struct Contatto{
 
 }Contatto;
 
-int LoadData ( FILE * pointFile ) {
+void LoadData ( struct Contatto ** rubricaHead ) {
 
-    return 1;
+    if ( rubricaHead == NULL )
+        return;
+
+    FILE *pointRubrica = fopen("Data.csv","w+");
+
+    struct Contatto *tmp = *rubricaHead;
+
+    while ( tmp != NULL ) {
+        fprintf( pointRubrica, "%s,%s,%s,%s,%s,",
+            tmp->name, tmp->surname, tmp->telephone, tmp->city, tmp->address
+            );
+        tmp = tmp->next;
+    }
+
+    // avevo dimenticato
+    fclose( pointRubrica );
+    printf("\n\n-- Salvato -- \n\n");
 }
 
 // stampa rubrica
@@ -49,13 +65,13 @@ int main () {
     int choice;
 
     do {
-        printf("\n-- Salvataggio automatico --");
         printf("\n1 - Inserisci in testa");
         printf("\n2 - Inserisci in coda");
         printf("\n3 - Trova numero");
         printf("\n4 - Elimina contatto");
         printf("\n5 - Stampa rubrica");
-        printf("\n6 - Esci\n: ");
+        printf("\n6 - Salvataggio");
+        printf("\n7 - Esci\n: ");
         scanf("%d",&choice);
         fflush(stdin);
 
@@ -92,6 +108,13 @@ int main () {
                 break;
 
             case 6:
+                if ( rubricaHead != NULL )
+                    LoadData( &rubricaHead );
+                else
+                    printf("\n\n-- Rubrica Vuota -- \n\n");
+                break;
+
+            case 7:
                 printf("\nesci");
                 break;
 
@@ -99,7 +122,7 @@ int main () {
                 printf("\nErrore imprevisto");
                 break;
         }
-    }while(choice);
+    }while(choice != 7);
 
     return 0;
 }

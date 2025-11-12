@@ -56,17 +56,17 @@ void SaveData ( struct Contatto ** rubricaHead ) {
 }
 
 // stampa rubrica
-void PrintContacts ( struct Contatto ** );
+void PrintContacts ( Contatto ** );
 // crea un nodo Contatto
 struct Contatto *CreateContact ();
 // inserimento in testa
-int InsertContactHead ( struct Contatto ** );
+int InsertContactHead ( Contatto ** );
 // inserimento in coda
-int InsertContactTail ( struct Contatto ** );
+int InsertContactTail ( Contatto ** );
 // cerca il contatto e restituisce quello precedente se esiste
-struct Contatto *SearchNumber ( struct Contatto ** );
+struct Contatto *SearchNumber ( Contatto ** );
 // cerca ed elimina il contatto
-void DeleteContact ( struct Contatto ** );
+void DeleteContact ( Contatto ** );
 
 
 int main () {
@@ -182,7 +182,7 @@ void PrintContacts ( struct Contatto **head ) {
 }
 
 // inserimento in testa
-int InsertContactHead ( struct Contatto **head ) {
+int InsertContactHead ( Contatto **head ) {
 
     // se la lista e vuota
     if ( *head == NULL ) {
@@ -201,7 +201,7 @@ int InsertContactHead ( struct Contatto **head ) {
 }
 
 // inserimento in coda
-int InsertContactTail ( struct Contatto **head ) {
+int InsertContactTail ( Contatto **head ) {
 
     // caso in cui la lista sia vuota
     if ( *head == NULL ){

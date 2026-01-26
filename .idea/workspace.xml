@@ -28,7 +28,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eed4fb5b-e41e-46d0-aaaa-73465ee41431" name="Changes" comment="intestazione file" />
+    <list default="true" id="eed4fb5b-e41e-46d0-aaaa-73465ee41431" name="Changes" comment="intestazione file">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2025_21_12_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2025_21_12__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,6 +151,7 @@
       <workItem from="1758797112694" duration="19000" />
       <workItem from="1759299305993" duration="59000" />
       <workItem from="1759778962478" duration="21000" />
+      <workItem from="1760941369625" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="files">
       <option name="closed" value="true" />

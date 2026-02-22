@@ -16,7 +16,6 @@ struct contatto{
     char surname[50];
     char telephone[20];
 };
-
 typedef struct node {
     struct contatto contatto;
     struct node *dx;
@@ -32,7 +31,7 @@ Node *CreateNode ();
 // inserimento in testa
 Node *InsertNode ( Node *, struct contatto );
 // cerca il nodo e restituisce quello precedente se esiste
-void SearchNumber ( Node * );
+void SearchContact ( Node *, struct contatto );
 // cerca ed elimina il nodo
 void DeleteNode ( Node * );
 
@@ -44,10 +43,12 @@ int main () {
 
     do {
         printf("\n1 - Inserisci un nuovo contatto");
-        printf("\n2 - Trova contatto con il numero");
-        printf("\n3 - Elimina un contatto");
-        printf("\n4 - Stampa tutta la rubrica");
-        printf("\n5 - Esci\n: ");
+        printf("\n2 - Stampa tutta la rubrica in ordine");
+        printf("\n3 - Trova un contatto");
+        printf("\n4 - Elimina un contatto");
+        printf("\n5 - Statistiche Albero");
+        printf("\n6 - Min e Max");
+        printf("\n7 - Esci\n: ");
         scanf("%d",&choice);
         fflush(stdin);
 
@@ -63,14 +64,6 @@ int main () {
                 break;
 
             case 2:
-                SearchNumber( root );
-                break;
-
-            case 3:
-                DeleteNode ( root );
-                break;
-
-            case 4:
                 if ( root != NULL ) {
                     printf("\n\n-- Inizio Rubrica --\n");
                     PrintNodes( root );
@@ -80,7 +73,23 @@ int main () {
                     printf("\n\n-- Rubrica Vuota -- \n\n");
                 break;
 
+            case 3:
+                printf("\nInserisci nome e cognome del contatto da cercare: ");
+                struct contatto target = compileContact();
+                SearchContact( root, target );
+                break;
+
+            case 4:
+                DeleteNode ( root );
+                break;
+
             case 5:
+                break;
+
+            case 6:
+                break;
+
+            case 7:
                 printf("\nesci");
                 break;
 
@@ -88,12 +97,12 @@ int main () {
                 printf("\nErrore imprevisto");
                 break;
         }
-    }while(choice!=5);
+    }while(choice!=7);
 
     return 0;
 }
 
-
+// compila un utente
 struct contatto compileContact () {
 
     struct contatto newContatto;
@@ -109,6 +118,7 @@ struct contatto compileContact () {
 
     return newContatto;
 }
+// stampa un contatto
 void printContact ( struct contatto contatto ) {
     printf("\nNome: %s", contatto.name);
     printf("\nCognome: %s", contatto.surname);
@@ -129,16 +139,13 @@ Node *CreateNode ( struct contatto newContatto ) {
 }
 
 // stampa rubrica
-void PrintNodes ( Node *root ) {
-
-    Node *current = root;
-    if ( root == NULL )
+void PrintNodes(Node *root) {
+    if (root == NULL)
         return;
 
-    printf("\nContatto: ");
-    PrintNodes(current->sx);
-    printContact(current->contatto);
-    PrintNodes(current->dx);
+    PrintNodes(root->sx);
+    printContact(root->contatto);
+    PrintNodes(root->dx);
 }
 
 // inserimento di un nodo
@@ -173,36 +180,23 @@ Node *InsertNode ( Node *root, struct contatto newContatto ) {
 }
 
 // cerca il contatto
-void SearchNumber ( Node *root ) {
-
-    if ( root == NULL )
+void SearchContact(Node *root, struct contatto target) {
+    if (root == NULL) {
+        printf("\n--Contatto non trovato--\n");
         return;
+    }
 
-    printf("\nInserisci i dati del contatto desiderato: ");
-    struct contatto newContatto = compileContact();
+    int cmp = strcmp(target.surname, root->contatto.surname);
+    if (cmp == 0)
+        cmp = strcmp(target.name, root->contatto.name);
 
-    Node *current = root;
-
-    int cmpSurname = strcmp( newContatto.surname, current->contatto.surname );
-    int cmpName = strcmp( newContatto.name, current->contatto.name );
-
-    if ( cmpSurname == 0 && cmpName == 0){
+    if (cmp == 0) {
         printf("\n--Contatto trovato--\n");
-        printContact(current->contatto);
-
-    } else if ( cmpSurname < 0 ) {
-        SearchNumber( current->sx );
-
-    } else if ( cmpSurname > 0 ) {
-        SearchNumber( current->dx );
-
+        printContact(root->contatto);
+    } else if (cmp < 0) {
+        SearchContact(root->sx, target);
     } else {
-        if ( cmpName < 0 ) {
-            SearchNumber( current->sx );
-
-        } else if ( cmpName > 0 ) {
-            SearchNumber( current->dx );
-        }
+        SearchContact(root->dx, target);
     }
 }
 

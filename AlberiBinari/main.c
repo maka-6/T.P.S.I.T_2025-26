@@ -23,23 +23,28 @@ typedef struct node {
 }Node;
 
 
-struct contatto compileContact ();
+struct contatto compile_contact ();
 // stampa rubrica
-void PrintNodes ( Node * );
+void print_nodes ( Node * );
 // crea un nodo Contatto
-Node *CreateNode ();
+Node *create_node ( struct contatto );
 // inserimento in testa
-Node *InsertNode ( Node *, struct contatto );
+Node *insert_node ( Node *, struct contatto );
 // cerca il nodo e restituisce quello precedente se esiste
-void SearchContact ( Node *, struct contatto );
+void search_contact ( Node *, struct contatto );
 // cerca ed elimina il nodo
-void DeleteNode ( Node * );
+void delete_node ( Node *, struct contatto );
+//
+void statistics ( Node * );
+//
+void free_tree ( Node * );
 
 
 int main () {
 
     Node *root = NULL;
     int choice;
+    struct contatto newContatto;
 
     do {
         printf("\n1 - Inserisci un nuovo contatto");
@@ -54,8 +59,8 @@ int main () {
 
         switch (choice) {
             case 1:
-                struct contatto newContatto = compileContact();
-                if ( ( root = InsertNode( root, newContatto ) ) != NULL ) {
+                struct contatto newContatto = compile_contact();
+                if ( ( root = insert_node( root, newContatto ) ) != NULL ) {
                     printf("\nContatto inserito");
                 } else {
                     printf("\nContatto non inserito");
@@ -66,7 +71,7 @@ int main () {
             case 2:
                 if ( root != NULL ) {
                     printf("\n\n-- Inizio Rubrica --\n");
-                    PrintNodes( root );
+                    print_nodes( root );
                     printf("\n\n-- Fine Rubrica --\n\n");
 
                 } else
@@ -75,22 +80,25 @@ int main () {
 
             case 3:
                 printf("\nInserisci nome e cognome del contatto da cercare: ");
-                struct contatto target = compileContact();
-                SearchContact( root, target );
+                struct contatto target = compile_contact();
+                search_contact( root, target );
                 break;
 
             case 4:
-                DeleteNode ( root );
+                struct contatto delete = compile_contact();
+                delete_node ( root, delete );
                 break;
 
             case 5:
+                statistics(root);
                 break;
 
             case 6:
                 break;
 
             case 7:
-                printf("\nesci");
+                printf("\nArrivederci");
+                free_tree(root);
                 break;
 
             default:
@@ -103,7 +111,7 @@ int main () {
 }
 
 // compila un utente
-struct contatto compileContact () {
+struct contatto compile_contact () {
 
     struct contatto newContatto;
     printf("\nInserisci nome: ");
@@ -119,13 +127,13 @@ struct contatto compileContact () {
     return newContatto;
 }
 // stampa un contatto
-void printContact ( struct contatto contatto ) {
+void print_contact ( struct contatto contatto ) {
     printf("\nNome: %s", contatto.name);
     printf("\nCognome: %s", contatto.surname);
     printf("\nNumero: %s", contatto.telephone);
 }
 // crea un nodo Contatto
-Node *CreateNode ( struct contatto newContatto ) {
+Node *create_node ( struct contatto newContatto ) {
 
     Node *newNode = (Node *)malloc(sizeof(Node));
     if ( newNode == NULL )
@@ -139,37 +147,37 @@ Node *CreateNode ( struct contatto newContatto ) {
 }
 
 // stampa rubrica
-void PrintNodes(Node *root) {
+void print_nodes(Node *root) {
     if (root == NULL)
         return;
 
-    PrintNodes(root->sx);
-    printContact(root->contatto);
-    PrintNodes(root->dx);
+    print_nodes(root->sx);
+    print_contact(root->contatto);
+    print_nodes(root->dx);
 }
 
 // inserimento di un nodo
-Node *InsertNode ( Node *root, struct contatto newContatto ) {
+Node *insert_node ( Node *root, struct contatto newContatto ) {
     // se la radice e vuota
     if ( root == NULL ) {
-        return CreateNode(newContatto);
+        return create_node(newContatto);
     }
 
     int cmp = strcmp( newContatto.surname, root->contatto.surname );
 
     if ( cmp < 0 ) {
-        root->sx = InsertNode( root->sx, newContatto );
+        root->sx = insert_node( root->sx, newContatto );
 
     } else if ( cmp > 0 ) {
-        root->dx = InsertNode( root->dx, newContatto );
+        root->dx = insert_node( root->dx, newContatto );
 
     } else {
         cmp = strcmp( newContatto.name, root->contatto.name );
         if ( cmp < 0 ){
-            root->sx = InsertNode( root->sx, newContatto );
+            root->sx = insert_node( root->sx, newContatto );
 
         } else if ( cmp > 0 ){
-            root->dx = InsertNode( root->dx, newContatto );
+            root->dx = insert_node( root->dx, newContatto );
 
         } else {
             printf("\nContatto duplicato");
@@ -180,7 +188,7 @@ Node *InsertNode ( Node *root, struct contatto newContatto ) {
 }
 
 // cerca il contatto
-void SearchContact(Node *root, struct contatto target) {
+void search_contact(Node *root, struct contatto target) {
     if (root == NULL) {
         printf("\n--Contatto non trovato--\n");
         return;
@@ -192,16 +200,16 @@ void SearchContact(Node *root, struct contatto target) {
 
     if (cmp == 0) {
         printf("\n--Contatto trovato--\n");
-        printContact(root->contatto);
+        print_contact(root->contatto);
     } else if (cmp < 0) {
-        SearchContact(root->sx, target);
+        search_contact(root->sx, target);
     } else {
-        SearchContact(root->dx, target);
+        search_contact(root->dx, target);
     }
 }
 
 // cerca ed elimina il contatto
-void DeleteNode ( Node *root ) {
+void delete_node ( Node *root, struct contatto target ) {
 
     if ( root == NULL )
         return;
@@ -209,4 +217,20 @@ void DeleteNode ( Node *root ) {
     printf("\n-- Eliminato --\n");
     // caso in cui esiste solo la testa
 
+}
+
+void statistics ( Node *root ) {
+
+}
+
+void free_tree(Node *root) {
+    if (root == NULL)
+        return;
+
+    // Libera ricorsivamente i figli
+    free_tree(root->sx);
+    free_tree(root->dx);
+
+    // Libera il nodo corrente
+    free(root);
 }
